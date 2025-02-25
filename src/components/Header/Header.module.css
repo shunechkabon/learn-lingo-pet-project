@@ -1,0 +1,110 @@
+.header {
+    background-color: var(--background-primary-color);
+    padding: 20px 64px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.4px;
+}
+
+.nav {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+}
+
+.navLink {
+    font-size: 16px;
+    line-height: 1.25;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+}
+
+.navLink:hover,
+.navLink:focus,
+.navLink.active {
+    color: var(--button-primary-color);
+}
+
+.navLink::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: var(--button-primary-color);
+    border-radius: 50%;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.navLink.active::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.auth {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.loginBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background-color: transparent;
+    transition: color 0.3s ease-in-out;
+
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.loginBtn:hover,
+.loginBtn:focus {
+    color: var(--button-primary-color);
+}
+
+.registerBtn {
+    display: flex;
+    padding: 14px 39px;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: 12px;
+    background-color: var(--text-primary-color);
+    transition: background-color 0.3s ease-in-out;
+
+    color: var(--background-primary-color);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.registerBtn:hover,
+.registerBtn:focus {
+    background-color: var(--button-primary-color);
+}

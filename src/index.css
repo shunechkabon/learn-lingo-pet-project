@@ -65,7 +65,7 @@ body {
   font-style: normal;
   color: var(--text-primary-color);
   background-color: var(--background-primary-color);
-  line-height: 1.6;
+  line-height: 1.2;
 
   overflow-y: auto;
   overflow-x: hidden;

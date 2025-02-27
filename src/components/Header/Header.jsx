@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import LoginModal from '../LoginModal/LoginModal';
+import RegisterModal from '../RegisterModal/RegisterModal';
 import Icon from '../Icon';
 // import useAuth from '../../hooks/useAuth'; 
 import s from './Header.module.css';
@@ -8,6 +9,7 @@ import s from './Header.module.css';
 const Header = () => {
     // const isAuthenticated = useAuth();
     const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
     return (
         <header className={s.header}>
@@ -37,7 +39,8 @@ const Header = () => {
                         Log in
                     </button>
                     <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
-                    <button className={s.registerBtn}>Registration</button>
+                    <button className={s.registerBtn} onClick={() => setIsRegisterOpen(true)}>Registration</button>
+                    <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
                 </div>
             </div>
         </header>

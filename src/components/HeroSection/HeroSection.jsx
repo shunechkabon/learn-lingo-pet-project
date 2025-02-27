@@ -1,6 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import s from './HeroSection.module.css';
 
 const HeroSection = () => {
+    const navigate = useNavigate();
+    
+    const handleNavigate = () => {
+        navigate('/teachers');
+    };
+
     return (
         <section className={s.hero}>
             <div className={s.container}>
@@ -11,7 +18,7 @@ const HeroSection = () => {
                     <p>
                         Embark on an Exciting Language Journey with Expert Language Tutors: Elevate your language proficiency to new heights by connecting with highly qualified and experienced tutors.
                     </p>
-                    <button className={s.heroBtn}>Get started</button>
+                    <button className={s.heroBtn} onClick={handleNavigate}>Get started</button>
                 </div>
                 <div className={s.imageBlock}>
                     <img

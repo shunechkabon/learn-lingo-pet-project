@@ -34,7 +34,10 @@ const LoginModal = ({ isOpen, onClose }) => {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === 'Escape') onClose();
+            if (e.key === 'Escape') {
+                onClose();
+                setTimeout(() => document.activeElement.blur(), 0);
+            }
         };
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);

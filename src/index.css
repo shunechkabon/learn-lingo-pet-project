@@ -46,6 +46,8 @@
   /*Button-colors*/
   --button-primary-color: #F4C550;
   --button-focus-color: #FBE9BA;
+
+  --header-height: 88px;
 }
 
 /* Reset styles */

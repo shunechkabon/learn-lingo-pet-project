@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    min-height: calc(100vh - var(--header-height));
+    padding: 26px 128px;
+    background-color: var(--background-secondary-color);
+}
+
+.loadMoreBtn {
+    margin: 0 auto;
+    margin-top: 32px;
+    padding: 16px 48px;
+    background-color: var(--button-primary-color);
+    border: none;
+    border-radius: 12px;
+
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.55;
+    
+    transition: background-color 0.3s ease;
+}
+
+.loadMoreBtn:hover {
+    background-color: var(--button-focus-color);
+}

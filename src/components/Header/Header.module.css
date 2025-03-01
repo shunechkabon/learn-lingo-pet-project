@@ -11,6 +11,24 @@
     align-items: center;
 }
 
+.logoSet {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.burgerBtn {
+    background: transparent;
+    border: none;
+    display: block;
+}
+
+/* .burgerIcon {
+    stroke: black;
+    fill: black;
+    visibility: visible;
+} */
+
 .logo {
     display: flex;
     justify-content: center;
@@ -24,10 +42,7 @@
 }
 
 .nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+    display: none;
 }
 
 .navLink {
@@ -67,7 +82,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .loginBtn {
@@ -114,15 +129,21 @@
     background-color: var(--button-primary-color);
 }
 
-@media (min-width:768px) {
+@media screen and (min-width:768px) {
     .container {
-        padding: 20px 64px;
+        padding: 20px 32px;
+    }
+
+    .burgerBtn {
+        display: none;
     }
 
     .nav {
         align-items: flex-start;
         flex-direction: row;
-        gap: 28px;
+        align-items: center;
+        gap: 16px;
+        display: flex;
     }
 
     .navLink::after {
@@ -132,6 +153,20 @@
     .auth {
         flex-direction: row;
         gap: 16px;
+    }
+
+    .registerBtn {
+        padding: 12px 20px;
+    }
+}
+
+@media screen and (min-width:1024px) {
+    .container {
+        padding: 20px 64px;
+    }
+
+    .nav {
+        gap: 28px;
     }
 
     .registerBtn {

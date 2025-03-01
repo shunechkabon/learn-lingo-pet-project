@@ -109,8 +109,6 @@
 }
 
 .iconEyeOff {
-    stroke: var(--text-primary-color);
-    fill: none;
     transition: transform 0.3s ease-in-out;
 }
 

@@ -60,13 +60,13 @@ const LoginModal = ({ isOpen, onClose }) => {
                 {/* Login Form */}
                 <form onSubmit={handleSubmit(onSubmit)} className={s.loginForm}>
                     <div className={s.emailWrapper}>
-                        <input {...register('email')} type="email" placeholder="Email" autoFocus />
+                        <input {...register('email')} type="email" placeholder="Email"autoComplete="username" autoFocus />
                         {errors.email && (
                             <p className={s.errorText}>{errors.email.message}</p>
                         )}
                     </div>
                     <div className={s.passwordWrapper}>
-                        <input {...register('password')} type={showPassword ? "text" : "password"} placeholder="Password" />
+                        <input {...register('password')} type={showPassword ? "text" : "password"} placeholder="Password" autoComplete="current-password" />
                         <button type='button' className={s.toggleBtn} onClick={togglePasswordVisibility}>
                             {showPassword ? (
                                 <Icon name='icon-eye-on' width={20} height={20} className={s.iconEyeOn} />

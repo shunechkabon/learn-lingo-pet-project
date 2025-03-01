@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
+import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Icon from '../Icon';
 // import useAuth from '../../hooks/useAuth'; 
 import s from './Header.module.css';
@@ -10,15 +11,27 @@ const Header = () => {
     // const isAuthenticated = useAuth();
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen((prev) => !prev);
+    };
 
     return (
         <header className={s.header}>
             <div className={s.container}>
-                {/* Logo */}
-                <NavLink to="/" className={s.logo}>
-                    <Icon name="icon-logo" width={28} height={28} />
-                    LearnLingo
-                </NavLink>
+                <div className={s.logoSet}>
+                    <button className={s.burgerBtn} onClick={toggleMenu}>
+                        {/* <Icon name="icon-menu" width={30} height={28} className={s.burgerIcon} /> */}
+                        <img src="/src/assets/images/burger-menu.png" alt="Menu" width={30} height={30} className={s.burgerIcon} />
+                    </button>
+    
+                    {/* Logo */}
+                    <NavLink to="/" className={s.logo}>
+                        <Icon name="icon-logo" width={28} height={28} />
+                        LearnLingo
+                    </NavLink>
+                </div>
 
                 {/* Navigation */}
                 <nav className={s.nav}>
@@ -42,6 +55,8 @@ const Header = () => {
                     <button className={s.registerBtn} onClick={() => setIsRegisterOpen(true)}>Registration</button>
                     <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
                 </div>
+
+                <BurgerMenu isOpen={isMenuOpen} onClose={toggleMenu} />
             </div>
         </header>
     );

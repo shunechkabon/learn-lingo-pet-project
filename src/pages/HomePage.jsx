@@ -3,10 +3,10 @@ import Stats from '../components/Stats/Stats';
 
 const HomePage = () => {
   return (
-    <main>
+    <>
       <HeroSection />
       <Stats />
-    </main>
+    </>
   );
 };
 

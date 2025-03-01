@@ -74,13 +74,13 @@ const RegisterModal = ({ isOpen, onClose }) => {
                         )}
                     </div>
                     <div className={s.emailWrapper}>
-                        <input {...register('email')} type="email" placeholder="Email" />
+                        <input {...register('email')} type="email" placeholder="Email" autoComplete="username" />
                         {errors.email && (
                             <p className={s.errorText}>{errors.email.message}</p>
                         )}
                     </div>
                     <div className={s.passwordWrapper}>
-                        <input {...register('password')} type={showPassword ? "text" : "password"} placeholder="Password" />
+                        <input {...register('password')} type={showPassword ? "text" : "password"} placeholder="Password" autoComplete="new-password" />
                         <button type='button' className={s.toggleBtn} onClick={togglePasswordVisibility}>
                             {showPassword ? (
                                 <Icon name='icon-eye-on' width={20} height={20} className={s.iconEyeOn} />

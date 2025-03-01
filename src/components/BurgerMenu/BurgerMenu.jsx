@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
 import Icon from "../Icon";
 import s from "./BurgerMenu.module.css";
 
 const BurgerMenu = ({ isOpen, onClose }) => {
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+    
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
@@ -45,13 +49,19 @@ const BurgerMenu = ({ isOpen, onClose }) => {
 
                 {/* Auth buttons */}
                 <div className={s.auth}>
-                    <button className={s.loginBtn} onClick={() => setIsLoginOpen(true)}>
-                        <Icon name="icon-log-in" width={20} height={20} style={ {stroke: 'var(--button-primary-color)'} } />
-                        Log in
-                    </button>
-                    <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
-                    <button className={s.registerBtn} onClick={() => setIsRegisterOpen(true)}>Registration</button>
-                    <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
+                    {!isLoggedIn ? (
+                        <>
+                            <button className={s.loginBtn} onClick={() => setIsLoginOpen(true)}>
+                                <Icon name="icon-log-in" width={20} height={20} style={ {stroke: 'var(--button-primary-color)'} } />
+                                Log in
+                            </button>
+                            <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+                            <button className={s.registerBtn} onClick={() => setIsRegisterOpen(true)}>Registration</button>
+                            <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
+                        </>
+                    ) : (
+                        <button className={s.logoutBtn}>Log Out</button> 
+                    )}
                 </div>
             </nav>
         </div>

@@ -1,32 +1,16 @@
 import TeachersCard from "../TeachersCard/TeachersCard";
+import s from "./TeachersList.module.css";
 
-const dummyTeachers = [
-  {
-    id: 1,
-    name: "Jane Smith",
-    languages: ["German", "French"],
-    lessonsDone: 1098,
-    rating: 4.8,
-    price: 30,
-  },
-  {
-    id: 2,
-    name: "David Johnson",
-    languages: ["Mandarin Chinese"],
-    lessonsDone: 1203,
-    rating: 4.2,
-    price: 35,
-  },
-];
-
-const TeachersList = () => {
-  return (
-    <ul>
-      {dummyTeachers.map((teacher) => (
-        <TeachersCard key={teacher.id} teacher={teacher} />
-      ))}
-    </ul>
-  );
+const TeachersList = ({ teachers }) => {
+    return (
+        <ul className={s.list}>
+            {teachers.length > 0 ? (
+                teachers.map((teacher) => <TeachersCard key={teacher.id} teacher={teacher} />)
+            ) : (
+                <p className={s.noResults}>No teachers found.</p>
+            )}
+        </ul>
+    );
 };
 
 export default TeachersList;

@@ -1,0 +1,313 @@
+.card {
+    width: 100%;
+    max-width: 1184px;
+    background-color: var(--background-primary-color);
+    border-radius: 24px;
+    padding: 12px;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 20px;
+}
+
+/* Photo */
+.avatarWrapper {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid var(--button-focus-color);
+    background-color: var(--background-primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.onlineIcon {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+}
+
+.info {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+.labelWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.label {
+    color: var(--text-secondary-color);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.name {
+    color: var(--text-primary-color);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.statsWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 64px;
+}
+
+.stats {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.statItem {
+    position: relative;
+    color: var(--text-primary-color);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.statIconSet {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.statItem:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 16px;
+    width: 1px;
+    background-color: var(--text-secondary-color);
+}
+
+.price {
+    color: var(--text-money-color);
+}
+
+.favoriteBtn {
+    background: none;
+    border: none;
+}
+
+.favoriteIcon {
+    fill: none;
+    stroke: var(--text-primary-color);
+}
+
+.favoriteBtn:focus .favoriteIcon,
+.favoriteBtn:active .favoriteIcon {
+    fill: var(--button-primary-color);
+    stroke: var(--button-primary-color);
+}
+
+/* Lesson info */
+.lesson {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.lessonDescrList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.lessonDescrItem {
+    color: var(--text-secondary-color);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.lessonDescrItem span {
+    color: var(--text-primary-color);
+}
+
+.languages {
+    text-decoration-line: underline;
+}
+
+/* "Read more" button */
+.readMoreBtn {
+    background: none;
+    border: none;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-decoration-line: underline;
+}
+
+/* Expanded description + reviews */
+.expandable {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+.expanded {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.fullDescr {
+    line-height: 1.5;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* Reviews */
+.reviews {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.review {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.reviewer {
+    display: flex;
+    gap: 12px;
+}
+
+.reviewerPhoto {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--text-secondary-color);
+}
+
+.reviwerName {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+.reviewAuthor {
+    color: var(--text-secondary-color);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.reviewRate {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.reviewerComment {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* Level Tags */
+.levels {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.levelTag {
+    padding: 8px 12px;
+    border-radius: 35px;
+    border: 1px solid rgba(18, 20, 23, 0.20);
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.14;
+}
+
+.levelTag:first-child {
+    background-color: var(--button-primary-color);
+    border: none;
+}
+
+/* "Book trial lesson" Button */
+.bookLesson {
+    background-color: var(--button-primary-color);
+    padding: 16px 48px;
+    border-radius: 12px;
+    border: none;
+    transition: background-color 0.2s ease;
+
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.55;
+}
+
+.bookLesson:hover {
+    background-color: var(--button-focus-color);
+}
+
+@media screen and (min-width:768px) {
+    .card {
+        padding: 24px;
+        gap: 48px;
+    }
+
+    .avatarWrapper {
+        width: 120px;
+        height: 120px;
+    }
+
+    .photo {
+        width: 96px;
+        height: 96px;
+    }
+
+    .onlineIcon {
+        top: 16px;
+        right: 20px;
+    }
+
+    .info {
+        gap: 32px;
+    }
+}
+
+@media screen and (min-width:1024px) {}

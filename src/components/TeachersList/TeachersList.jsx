@@ -5,7 +5,7 @@ const TeachersList = ({ teachers }) => {
     return (
         <ul className={s.list}>
             {teachers.length > 0 ? (
-                teachers.map((teacher) => <TeachersCard key={teacher.id} teacher={teacher} />)
+                teachers.map((teacher, index) => <TeachersCard key={index} teacher={teacher} />)
             ) : (
                 <p className={s.noResults}>No teachers found.</p>
             )}

@@ -24,8 +24,7 @@ const Header = () => {
             <div className={s.container}>
                 <div className={s.logoSet}>
                     <button className={s.burgerBtn} onClick={toggleMenu}>
-                        {/* <Icon name="icon-menu" width={30} height={28} className={s.burgerIcon} /> */}
-                        <img src="/src/assets/images/burger-menu.png" alt="Menu" width={30} height={30} className={s.burgerIcon} />
+                        <Icon name="icon-menu" width={30} height={30} className={s.burgerIcon} />
                     </button>
     
                     {/* Logo */}

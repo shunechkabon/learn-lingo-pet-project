@@ -1,0 +1,186 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.overlayVisible {
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+}
+
+.modal {
+    background: var(--background-primary-color);
+    padding: 32px;
+    border-radius: 12px;
+    max-width: 320px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+
+    transform: translateY(-20px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.modalVisible {
+    transform: translateY(0);
+}
+
+.closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: none;
+    background-color: transparent;
+
+    transition: transform 0.2s ease-in-out;
+}
+
+.closeBtn:hover {
+    transform: rotate(90deg);
+}
+
+.closeBtn svg {
+    stroke: var(--text-primary-color);
+}
+
+.modalTitle {
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.8px;
+    margin-bottom: 14px;
+}
+
+.modalText {
+    color: var(rgba(18, 20, 23, 0.80));
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.37;
+    margin-bottom: 26px;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+}
+
+.emailWrapper input,
+.passwordWrapper input {
+    padding: 16px;
+    padding-left: 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(18, 20, 23, 0.10);
+    width: 256px;
+}
+
+.passwordWrapper,
+.emailWrapper {
+    position: relative;
+}
+
+.toggleBtn {
+    position: absolute;
+    right: 18px;
+    top: 17px;
+    border: none;
+    background: none;
+}
+
+.iconEyeOn {
+    fill: var(--text-primary-color);
+    transition: transform 0.3s ease-in-out;
+}
+
+.iconEyeOff {
+    transition: transform 0.3s ease-in-out;
+}
+
+.toggleBtn:hover .iconEyeOn,
+.toggleBtn:hover .iconEyeOff {
+    transform: scale(1.1);
+}
+
+.submitBtn {
+    background: var(--button-primary-color);
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    margin-top: 22px;
+
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.55;
+
+    transition: background-color 0.3s ease-in-out;
+}
+
+.submitBtn:hover,
+.submitBtn:focus {
+    background: var(--button-focus-color);
+}
+
+.errorText {
+    font-size: 8px;
+    color: red;
+
+    position: absolute;
+    bottom: -10px;
+}
+
+@media screen and (min-width: 768px) {
+    .modal {
+        max-width: 500px;
+        padding: 48px;
+    }
+
+    .loginTitle {
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+
+    .loginText {
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+
+    .loginForm {
+        gap: 18px;
+    }
+
+    .emailWrapper input,
+    .passwordWrapper input {
+        width: 404px;
+    }
+
+    .errorText {
+        font-size: 12px;
+        bottom: -16px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .modal {
+        max-width: 566px;
+        padding: 64px;
+    }
+
+    .emailWrapper input,
+    .passwordWrapper input {
+        width: 438px;
+    }
+}

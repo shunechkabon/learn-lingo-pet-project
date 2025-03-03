@@ -104,7 +104,7 @@ const TeachersCard = ({ teacher }) => {
     
                 {/* "Book trial lesson" Button */}
                 {isExpanded &&
-                    <button className={s.bookLesson}>Book trial lesson</button>
+                    <button className={s.bookLessonBtn}>Book trial lesson</button>
                 }
             </div>
         </div>

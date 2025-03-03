@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Icon from '../Icon';
+import TrialLessonModal from "../TrialLessonModal/TrialLessonModal";
 import s from "./TeachersCard.module.css";
 
 const TeachersCard = ({ teacher }) => {
@@ -10,6 +11,11 @@ const TeachersCard = ({ teacher }) => {
     } = teacher;
 
     const [isExpanded, setIsExpanded] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
 
     return (
         <div className={s.card}>
@@ -76,7 +82,7 @@ const TeachersCard = ({ teacher }) => {
                                 <div key={index} className={s.review}>
                                     <div className={s.reviewer}>
                                         <div className={s.reviewerPhoto}>
-                                            {/* <Icon name='icon-person' width={12} height={12} /> */}
+                                            {/* <Icon name='icon-user' width={20} height={20} /> */}
                                         </div>
                                         <div className={s.reviwerName}>
                                             <p className={s.reviewAuthor}>{reviewer_name}</p>
@@ -104,8 +110,9 @@ const TeachersCard = ({ teacher }) => {
     
                 {/* "Book trial lesson" Button */}
                 {isExpanded &&
-                    <button className={s.bookLessonBtn}>Book trial lesson</button>
+                    <button type="button" className={s.bookLessonBtn} onClick={openModal}>Book trial lesson</button>
                 }
+                <TrialLessonModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} teacher={teacher} />
             </div>
         </div>
     );

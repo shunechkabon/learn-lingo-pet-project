@@ -49,12 +49,12 @@ const Header = () => {
                 <div className={s.auth}>
                     {!isLoggedIn ? (
                         <>
-                            <button className={s.loginBtn} onClick={() => setIsLoginOpen(true)}>
+                            <button type='button' className={s.loginBtn} onClick={() => setIsLoginOpen(true)}>
                                 <Icon name="icon-log-in" width={20} height={20} style={ {stroke: 'var(--button-primary-color)'} } />
                                 Log in
                             </button>
                             <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
-                            <button className={s.registerBtn} onClick={() => setIsRegisterOpen(true)}>Registration</button>
+                            <button type='button' className={s.registerBtn} onClick={() => setIsRegisterOpen(true)}>Registration</button>
                             <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
                         </>
                     ) : (

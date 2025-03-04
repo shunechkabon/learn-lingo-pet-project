@@ -64,40 +64,61 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
 
                 {/* Teacher info */}
                 {teacher && (
-                    <div className={s.teacherInfo}>
+                    <div className={s.teacher}>
                         <img src={teacher.avatar_url} alt={teacher.name} className={s.avatar} />
-                        <div>
-                            <span className={s.label}>Your teacher</span>
+                        <div className={s.teacherInfo}>
+                            <span className={s.who}>Your teacher</span>
                             <p className={s.teacherName}>{teacher.name} {teacher.surname}</p>
                         </div>
                     </div>
                 )}
 
                 {/* Form */}
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <label>What is your main reason for learning English?</label>
+                <form onSubmit={handleSubmit(onSubmit)} className={s.modalForm}>
+                    <p className={s.formText}>What is your main reason for learning English?</p>
                     <div className={s.radioGroup}>
-                        <label><input {...register("reason")} type="radio" value="Career and business" /> Career and business</label>
-                        <label><input {...register("reason")} type="radio" value="Lesson for kids" /> Lesson for kids</label>
-                        <label><input {...register("reason")} type="radio" value="Living abroad" /> Living abroad</label>
-                        <label><input {...register("reason")} type="radio" value="Exams and coursework" /> Exams and coursework</label>
-                        <label><input {...register("reason")} type="radio" value="Culture, travel or hobby" /> Culture, travel or hobby</label>
+                        <label>
+                            <input className={s.radio} {...register("reason")} type="radio" value="Career and business" />
+                            <span className={s.label}>Career and business</span>
+                        </label>
+                        <label>
+                            <input className={s.radio} {...register("reason")} type="radio" value="Lesson for kids" />
+                            <span className={s.label}>Lesson for kids</span>
+                        </label>
+                        <label>
+                            <input className={s.radio} {...register("reason")} type="radio" value="Living abroad" />
+                            <span className={s.label}>Living abroad</span>
+                        </label>
+                        <label>
+                            <input className={s.radio} {...register("reason")} type="radio" value="Exams and coursework" />
+                            <span className={s.label}>Exams and coursework</span>
+                        </label>
+                        <label>
+                            <input className={s.radio} {...register("reason")} type="radio" value="Culture, travel or hobby" />
+                            <span className={s.label}>Culture, travel or hobby</span>
+                        </label>
                     </div>
-                    <div>
-                        <input {...register("name")} type="text" placeholder="Full Name" />
-                        {errors.name && (
-                            <p className={s.errorText}>{errors.name.message}</p>
-                        )}
-                        <input {...register("email")} type="email" placeholder="Email" />
-                        {errors.email && (
-                            <p className={s.errorText}>{errors.email.message}</p>
-                        )}
-                        <input {...register("phone")} type="tel" placeholder="Phone number" />
-                        {errors.phone && (
-                            <p className={s.errorText}>{errors.phone.message}</p>
-                        )}
+                    <div className={s.inputGroup}>
+                        <div className={s.nameWrapper}>
+                            <input {...register("name")} type="text" placeholder="Full Name" />
+                            {errors.name && (
+                                <p className={s.errorText}>{errors.name.message}</p>
+                            )}
+                        </div>
+                        <div className={s.emailWrapper}>
+                            <input {...register("email")} type="email" placeholder="Email" />
+                            {errors.email && (
+                                <p className={s.errorText}>{errors.email.message}</p>
+                            )}
+                        </div>
+                        <div className={s.phoneWrapper}>
+                            <input {...register("phone")} type="tel" placeholder="Phone number" />
+                            {errors.phone && (
+                                <p className={s.errorText}>{errors.phone.message}</p>
+                            )}
+                        </div>
                     </div>
-                    <button type="submit" className={s.bookButton}>Book</button>
+                    <button type="submit" className={s.bookBtn}>Book</button>
                 </form>
             </div>
         </div>

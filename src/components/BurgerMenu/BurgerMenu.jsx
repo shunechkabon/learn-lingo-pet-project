@@ -44,7 +44,11 @@ const BurgerMenu = ({ isOpen, onClose }) => {
                 <ul className={s.navList}>
                     <li><NavLink to="/" className={({ isActive }) => `${s.navLink} ${isActive ? s.active : ""}`}>Home</NavLink></li>
                     <li><NavLink to="/teachers" className={({ isActive }) => `${s.navLink} ${isActive ? s.active : ""}`}>Teachers</NavLink></li>
-                    <li><NavLink to="/favorites" className={({ isActive }) => `${s.navLink} ${isActive ? s.active : ""}`}>Favorites</NavLink></li>
+                    {isLoggedIn && (
+                        <NavLink to="/favorites" className={({ isActive }) => `${s.navLink} ${isActive ? s.active : ""}`}>
+                            Favorites
+                        </NavLink>
+                    )}
                 </ul>
 
                 {/* Auth buttons */}

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../../redux/auth/authSlice';
 import Icon from '../Icon';
 import s from './RegisterModal.module.css';
 
@@ -19,6 +21,8 @@ const schema = yup.object({
 }).required();
 
 const RegisterModal = ({ isOpen, onClose }) => {
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.auth);
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(schema)
     });
@@ -51,7 +55,14 @@ const RegisterModal = ({ isOpen, onClose }) => {
         return () => document.removeEventListener('keydown', handleKeyDown);
     }, [onClose]);
 
-    const onSubmit = () => {
+    const onSubmit = async (data) => {
+        const userData = {
+            email: data.email.trim(),
+            password: data.password.trim(),
+            name: data.name.trim(),
+        };
+        console.log("Registering user with data:", data);
+        await dispatch(registerUser(userData));
         reset();
         onClose();
     };
@@ -92,7 +103,10 @@ const RegisterModal = ({ isOpen, onClose }) => {
                             <p className={s.errorText}>{errors.password.message}</p>
                         )}
                     </div>
-                    <button className={s.submitBtn} type="submit">Sign Up</button>
+                    {error && <p className={s.errorText}>{error}</p>}
+                    <button className={s.submitBtn} type="submit" disabled={loading}>
+                        {loading ? "Signing up..." : "Sign Up"}
+                    </button>
                 </form>
             </div>
         </div>

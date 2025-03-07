@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { loginUser, clearError } from '../../redux/auth/authSlice';
 import Icon from '../Icon';
 import s from './LoginModal.module.css';
 
@@ -11,18 +13,21 @@ const schema = yup.object({
 }).required();
 
 const LoginModal = ({ isOpen, onClose }) => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.auth);
+    const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm({
         resolver: yupResolver(schema)
     });
 
     const [showPassword, setShowPassword] = useState(false);
     const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-};
+        setShowPassword((prev) => !prev);
+    };
 
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
+            dispatch(clearError());
         } else {
             document.body.style.overflow = '';
             reset();
@@ -30,7 +35,7 @@ const LoginModal = ({ isOpen, onClose }) => {
         return () => {
             document.body.style.overflow = '';
         };
-    }, [isOpen, reset]);
+    }, [isOpen, reset, dispatch]);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -43,9 +48,15 @@ const LoginModal = ({ isOpen, onClose }) => {
         return () => document.removeEventListener('keydown', handleKeyDown);
     }, [onClose]);
 
-    const onSubmit = () => {
-        reset();
-        onClose();
+    const onSubmit = async (data) => {
+        const resultAction = await dispatch(loginUser(data));
+
+        if (loginUser.fulfilled.match(resultAction)) {
+            reset();
+            onClose();
+        } else {
+            setValue('password', '');
+        }
     };
 
     return (
@@ -60,7 +71,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 {/* Login Form */}
                 <form onSubmit={handleSubmit(onSubmit)} className={s.loginForm}>
                     <div className={s.emailWrapper}>
-                        <input {...register('email')} type="email" placeholder="Email"autoComplete="username" autoFocus />
+                        <input {...register('email')} type="email" placeholder="Email" autoComplete="username" autoFocus />
                         {errors.email && (
                             <p className={s.errorText}>{errors.email.message}</p>
                         )}
@@ -77,8 +88,12 @@ const LoginModal = ({ isOpen, onClose }) => {
                         {errors.password && (
                             <p className={s.errorText}>{errors.password.message}</p>
                         )}
+                        {error && <p className={s.errorText}>Incorrect password. Please, try again.</p>}
                     </div>
-                    <button className={s.submitBtn} type="submit">Log In</button>
+
+                    <button className={s.submitBtn} type="submit" disabled={loading}>
+                        {loading ? "Logging in..." : "Log In"}
+                    </button>
                 </form>
             </div>
         </div>

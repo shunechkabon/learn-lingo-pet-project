@@ -78,6 +78,7 @@
     transform: translateX(-50%) translateY(0);
 }
 
+/* Auth buttons */
 .auth {
     display: flex;
     align-items: center;
@@ -127,6 +128,47 @@
 .registerBtn:hover,
 .registerBtn:focus {
     background-color: var(--button-primary-color);
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.userIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: var(--text-secondary-color);
+    padding: 10px;
+}
+
+.userIcon svg {
+    fill: var(--background-secondary-color);
+}
+
+.userName {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.11;
+}
+
+.logoutBtn {
+    display: flex;
+    padding: 10px 16px;
+    justify-content: center;
+    align-items: center;
+    
+    border-radius: 12px;
+    border: 1px solid var(--text-primary-color);
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+    
+    color: var(--text-primary-color);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
 }
 
 @media screen and (min-width:768px) {

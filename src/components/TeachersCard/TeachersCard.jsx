@@ -82,7 +82,7 @@ const TeachersCard = ({ teacher }) => {
                                 <div key={index} className={s.review}>
                                     <div className={s.reviewer}>
                                         <div className={s.reviewerPhoto}>
-                                            {/* <Icon name='icon-user' width={20} height={20} /> */}
+                                            <Icon name='icon-user' width={18} height={18} />
                                         </div>
                                         <div className={s.reviwerName}>
                                             <p className={s.reviewAuthor}>{reviewer_name}</p>

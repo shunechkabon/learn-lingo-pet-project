@@ -1,31 +1,111 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getAuth,updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { app } from "../../firebase";
 
-const initialState = {
-  user: null,
-  isLoggedIn: false,
-  token: null,
-  isRefreshing: false,
-};
+const auth = getAuth(app);
+
+// User register
+export const registerUser = createAsyncThunk("auth/registerUser", async ({ email, name, password }, { rejectWithValue }) => {
+  try {
+    console.log("Registering with:", email, password); 
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    await updateProfile(user, { displayName: name });
+    
+    return { 
+      uid: user.uid, 
+      email: user.email, 
+      displayName: name 
+    }; 
+  } catch (error) {
+    console.error("Registration error:", error);
+    return rejectWithValue(error.message);
+  }
+});
+
+// User login
+export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, password }, { rejectWithValue }) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    
+    console.log("Logged in user:", user); 
+
+    return { 
+      uid: user.uid, 
+      email: user.email, 
+      displayName: user.displayName || "" 
+    }; 
+  } catch (error) {
+    console.error("Login error:", error);
+    return rejectWithValue(error.message);
+  }
+});
+
+// User logout
+export const logoutUser = createAsyncThunk("auth/logoutUser", async (_, { rejectWithValue }) => {
+  try {
+    await signOut(auth);
+    return null;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
+
+// Listening to authorization change
+export const listenAuthState = createAsyncThunk("auth/listenAuthState", (_, { dispatch }) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      dispatch(setUser({ uid: user.uid, email: user.email, displayName: user.displayName || "" }));
+    } else {
+      dispatch(setUser(null));
+    }
+  });
+});
 
 const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: {
+    user: null,
+    isAuthenticated: false,
+    loading: false,
+    error: null,
+  },
   reducers: {
-    logIn: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isLoggedIn = true;
+    setUser: (state, action) => {
+      state.user = action.payload;
+      state.isAuthenticated = !!action.payload;
+      state.error = null;
     },
-    logOut: (state) => {
-      state.user = null;
-      state.token = null;
-      state.isLoggedIn = false;
+    clearError: (state) => {
+      state.error = null;
     },
-    setRefreshing: (state, action) => {
-      state.isRefreshing = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.user = action.payload; 
+        state.isAuthenticated = true;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        console.log("loginUser.fulfilled - payload:", action.payload);
+        state.user = action.payload; 
+        state.isAuthenticated = true;
+        state.error = null;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        console.error("Login error:", action.payload);
+        state.error = action.payload;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.isAuthenticated = false;
+        state.error = null;
+      });
   },
 });
 
-export const { logIn, logOut, setRefreshing } = authSlice.actions;
+export const { setUser, clearError } = authSlice.actions;
 export default authSlice.reducer;

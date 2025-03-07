@@ -1,4 +1,7 @@
 import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { listenAuthState } from "./redux/auth/authSlice";
 import PublicRoute from "./routes/PublicRoute";
 import PrivateRoute from "./routes/PrivateRoute";
 import Layout from "./components/Layout";
@@ -7,41 +10,44 @@ import TeachersPage from "./pages/TeachersPage/TeachersPage";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listenAuthState());
+  }, [dispatch]);
+
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <PublicRoute>
-            <Layout>
+    <Layout>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PublicRoute>
               <HomePage />
-            </Layout>
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/teachers"
-        element={
-          <PublicRoute>
-            <Layout>
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/teachers"
+          element={
+            <PublicRoute>
               <TeachersPage />
-            </Layout>
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/favorites"
-        element={
-          <PrivateRoute>
-            <Layout>
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <PrivateRoute>
               <FavoritesPage />
-            </Layout>
-          </PrivateRoute>
-        }
-      />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Layout>
   );
 }
 

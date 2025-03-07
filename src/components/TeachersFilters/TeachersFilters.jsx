@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import Icon from "../Icon";
 import s from "./TeachersFilters.module.css";
 
 const languages = ["Any", "English", "French", "German", "Ukrainian", "Polish", "Spanish", "Mandarin Chinese", "Italian", "Korean"];
@@ -77,21 +78,20 @@ function Dropdown({ label, options, selected, onSelect }) {
         <div className={s.dropdown} ref={dropdownRef}>
             <span className={s.label}>{label}</span>
             <button className={s.button} onClick={() => setIsOpen((prev) => !prev)}>
-                {selected} <span className={s.arrow}>&#9662;</span>
+                {selected}
+                <Icon className={s.arrow} name="icon-arrow-down"/>
             </button>
-            {isOpen && (
-                <ul className={`${s.menu} ${isOpen ? s.open : ""}`}>
-                    {options.map((option) => (
-                        <li
-                            key={option}
-                            className={`${s.menuItem} ${option === selected ? s.selected : ""}`}
-                            onClick={() => handleSelect(option)}
-                        >
-                            {option}
-                        </li>
-                    ))}
-                </ul>
-            )}
+            <ul className={`${s.menu} ${isOpen ? s.open : ""}`}>
+                {options.map((option) => (
+                    <li
+                        key={option}
+                        className={`${s.menuItem} ${option === selected ? s.selected : ""}`}
+                        onClick={() => handleSelect(option)}
+                    >
+                        {option}
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }

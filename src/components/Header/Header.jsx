@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from '../../redux/auth/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectIsLoggedIn, selectUser } from '../../redux/auth/authSelectors';
+import { logoutUser } from "../../redux/auth/authSlice";
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
@@ -9,7 +10,9 @@ import Icon from '../Icon';
 import s from './Header.module.css';
 
 const Header = () => {
+    const dispatch = useDispatch();
     const isLoggedIn = useSelector(selectIsLoggedIn);
+    const user = useSelector(selectUser);
 
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -17,6 +20,10 @@ const Header = () => {
 
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
+    };
+
+    const handleLogout = () => {
+        dispatch(logoutUser());
     };
 
     return (
@@ -58,7 +65,15 @@ const Header = () => {
                             <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
                         </>
                     ) : (
-                        <button className={s.logoutBtn}>Log Out</button> 
+                        <div className={s.auth}>
+                            <div className={s.userInfo}>
+                                <div className={s.userIcon}>
+                                    <Icon name="icon-user"/>
+                                </div>
+                                <span className={s.userName}>{user?.displayName || "User"}</span>
+                            </div>
+                            <button className={s.logoutBtn} onClick={handleLogout}>Log Out</button>
+                        </div>
                     )}
                 </div>
 

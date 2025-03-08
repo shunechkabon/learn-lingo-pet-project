@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsLoggedIn, selectUser } from '../../redux/auth/authSelectors';
 import { logoutUser } from "../../redux/auth/authSlice";
@@ -17,6 +17,7 @@ const Header = () => {
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isRegisterOpen, setIsRegisterOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
@@ -26,8 +27,17 @@ const Header = () => {
         dispatch(logoutUser());
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 0);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
-        <header className={s.header}>
+        <header className={`${s.header} ${isScrolled ? s.scrolled : ""}`}>
             <div className={s.container}>
                 <div className={s.logoSet}>
                     <button className={s.burgerBtn} onClick={toggleMenu}>

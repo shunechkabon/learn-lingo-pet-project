@@ -68,6 +68,7 @@ body {
   color: var(--text-primary-color);
   background-color: var(--background-primary-color);
   line-height: 1.2;
+  padding-top: 88px;
 
   overflow-y: auto;
   overflow-x: hidden;

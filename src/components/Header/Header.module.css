@@ -1,7 +1,18 @@
 .header {
     background-color: var(--background-primary-color);
-    max-width: 1312px;
+    max-width: 1440px;
     margin: 0 auto;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.scrolled {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .container {
@@ -157,6 +168,7 @@
 .logoutBtn {
     display: flex;
     padding: 10px 16px;
+    height: 48px;
     justify-content: center;
     align-items: center;
     
@@ -204,7 +216,7 @@
 
 @media screen and (min-width:1024px) {
     .container {
-        padding: 20px 64px;
+        padding: 20px 128px;
     }
 
     .nav {

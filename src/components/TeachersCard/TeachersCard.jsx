@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { toggleFavorite, listenToFavorites } from "../../services/favoritesService";
+import { auth } from "../../firebase";
+import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
 import Icon from '../Icon';
 import TrialLessonModal from "../TrialLessonModal/TrialLessonModal";
@@ -12,9 +15,36 @@ const TeachersCard = ({ teacher }) => {
 
     const [isExpanded, setIsExpanded] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    const user = auth.currentUser;
+
+    useEffect(() => {
+        if (user) {
+            listenToFavorites(user.uid, (favorites) => {
+                setIsFavorite(favorites.some((fav) => fav.id === teacher.id));
+            });
+        }
+    }, [user, teacher.id]);
 
     const openModal = () => {
         setIsModalOpen(true);
+    };
+
+    const handleFavoriteClick = async () => {
+        if (!user) {
+            toast("You need to be logged in to add favorites! 🔐", {
+            icon: "⚠️",
+            style: {
+                borderRadius: "8px",
+                background: "var(--text-secondary-color)",
+                color: "#fff",
+            },
+        });
+            return;
+        }
+
+        await toggleFavorite(user.uid, teacher.id, teacher);
     };
 
     return (
@@ -45,8 +75,8 @@ const TeachersCard = ({ teacher }) => {
                             </li>
                             <li className={s.statItem}>Price / 1 hour: <span className={s.price}>{price_per_hour}$</span></li>
                         </ul>
-                        <button className={s.favoriteBtn}>
-                            <Icon name='icon-heart' className={s.favoriteIcon} width={26} height={26} />
+                        <button className={`${s.heart} ${isFavorite ? s.filled : ""}`} onClick={handleFavoriteClick}>
+                            <Icon name='icon-heart' className={s.heartIcon} width={26} height={26} />
                         </button>
                     </div>
                 </div>

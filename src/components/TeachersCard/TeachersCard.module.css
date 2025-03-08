@@ -123,21 +123,26 @@
     color: var(--text-money-color);
 }
 
-.favoriteBtn {
+.heart {
     background: none;
     border: none;
     position: absolute;
     right: 20px;
     top: -64px;
+    transition: transform 0.2s ease;
 }
 
-.favoriteIcon {
+.heart:hover {
+    transform: scale(1.1);
+}
+
+.heartIcon {
     fill: none;
     stroke: var(--text-primary-color);
 }
 
-.favoriteBtn:focus .favoriteIcon,
-.favoriteBtn:active .favoriteIcon {
+.filled .heartIcon,
+.filled .heartIcon {
     fill: var(--button-primary-color);
     stroke: var(--button-primary-color);
 }
@@ -356,7 +361,7 @@
         right: 0;
     }
 
-    .favoriteBtn {
+    .heart {
         right: -164px;
         top: -76px;
     }
@@ -444,7 +449,7 @@
         right: -16px;
     }
 
-    .favoriteBtn {
+    .heart {
         position: relative;
         right: 0;
         top: 0;

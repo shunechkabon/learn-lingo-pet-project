@@ -7,7 +7,6 @@ const auth = getAuth(app);
 // User register
 export const registerUser = createAsyncThunk("auth/registerUser", async ({ email, name, password }, { rejectWithValue }) => {
   try {
-    console.log("Registering with:", email, password); 
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
@@ -29,8 +28,6 @@ export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, pass
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    
-    console.log("Logged in user:", user); 
 
     return { 
       uid: user.uid, 
@@ -47,6 +44,7 @@ export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, pass
 export const logoutUser = createAsyncThunk("auth/logoutUser", async (_, { rejectWithValue }) => {
   try {
     await signOut(auth);
+    window.location.reload(); 
     return null;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -90,7 +88,6 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        console.log("loginUser.fulfilled - payload:", action.payload);
         state.user = action.payload; 
         state.isAuthenticated = true;
         state.error = null;

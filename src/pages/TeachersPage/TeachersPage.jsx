@@ -26,7 +26,10 @@ const TeachersPage = () => {
 
         if (snapshot.exists()) {
           const data = snapshot.val();
-          const teachersArray = Object.values(data);
+          const teachersArray = Object.entries(data).map(([id, teacher]) => ({
+            id,
+            ...teacher,
+          }));
           setFilteredTeachers(teachersArray);
           setTeachers(teachersArray.slice(0, PAGE_SIZE));
         } else {
@@ -70,13 +73,13 @@ const TeachersPage = () => {
   if (loading) return <p>Loading teachers...</p>;
 
   return (
-    <div className={s.container}>
+    <section className={s.container}>
       <TeachersFilters onFilterChange={handleFilters}/>
       <TeachersList teachers={teachers} />
       {visibleCount < filteredTeachers.length && (
         <button onClick={handleLoadMore} className={s.loadMoreBtn}>Load more</button>
       )}
-    </div>
+    </section>
   );
 };
 

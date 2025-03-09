@@ -21,6 +21,7 @@
 
 .button {
     background: var(--background-primary-color);
+    color: var(--text-primary-color);
     border: none;
     padding: 14px;
     border-radius: 14px;

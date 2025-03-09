@@ -104,6 +104,7 @@
 
     border: none;
     background-color: transparent;
+    color: var(--text-primary-color);
     transition: color 0.3s ease-in-out;
 
     font-size: 16px;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { loginUser, clearError } from '../../redux/auth/authSlice';
@@ -14,6 +15,7 @@ const schema = yup.object({
 
 const LoginModal = ({ isOpen, onClose, onSuccess }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { loading, error } = useSelector((state) => state.auth);
     const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm({
         resolver: yupResolver(schema)
@@ -54,6 +56,7 @@ const LoginModal = ({ isOpen, onClose, onSuccess }) => {
         if (loginUser.fulfilled.match(resultAction)) {
             reset();
             onClose();
+            navigate("/");
             onSuccess();
         } else {
             setValue('password', '');

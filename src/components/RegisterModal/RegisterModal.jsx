@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,6 +23,7 @@ const schema = yup.object({
 
 const RegisterModal = ({ isOpen, onClose, onSuccess }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { loading, error } = useSelector((state) => state.auth);
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(schema)
@@ -65,6 +67,7 @@ const RegisterModal = ({ isOpen, onClose, onSuccess }) => {
         await dispatch(registerUser(userData));
         reset();
         onClose();
+        navigate("/");
         onSuccess();
     };
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-hot-toast';
 import * as yup from 'yup';
@@ -25,16 +26,21 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
     });
 
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     
     useEffect(() => {
+        const disableScroll = (e) => e.preventDefault();
         if (isOpen) {
             document.body.style.overflow = 'hidden';
+            document.addEventListener('touchmove', disableScroll, { passive: false });
         } else {
             document.body.style.overflow = '';
+            document.removeEventListener('touchmove', disableScroll);
             reset();
         }
         return () => {
             document.body.style.overflow = '';
+            document.removeEventListener('touchmove', disableScroll);
         };
     }, [isOpen, reset]);
 
@@ -68,6 +74,7 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
                 });
                 reset();
                 onClose();
+                navigate("/");
             } else {
                 toast("Failed to send booking request.", {
                     style: {

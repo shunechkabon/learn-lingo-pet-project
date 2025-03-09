@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast } from 'react-hot-toast';
 import * as yup from 'yup';
 import Icon from '../Icon';
 import s from "./TrialLessonModal.module.css";
@@ -22,6 +23,8 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(schema)
     });
+
+    const [loading, setLoading] = useState(false);
     
     useEffect(() => {
         if (isOpen) {
@@ -47,6 +50,7 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
     }, [onClose]);
 
     const onSubmit = async (data) => {
+        setLoading(true);
         try {
             const response = await fetch("/.netlify/functions/sendEmail", {
                 method: "POST",
@@ -54,20 +58,36 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
                 body: JSON.stringify({ ...data, teacher }),
             });
 
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.message || "Error in sending emails");
+            if (response.ok) {
+                toast("Booking request sent successfully!", {
+                    style: {
+                        borderRadius: "8px",
+                        background: "var(--button-primary-color)",
+                        color: "#fff",
+                    },
+                });
+                reset();
+                onClose();
+            } else {
+                toast("Failed to send booking request.", {
+                    style: {
+                        borderRadius: "8px",
+                        background: "var(--text-secondary-color)",
+                        color: "#fff",
+                    },
+                });
             }
-
-            alert("Booking confirmed! Check your email.");
-        } catch (error) {
-            console.error("Error:", error);
-            alert("Failed to send email: " + error.message);
+        } catch {
+            toast("Something went wrong. Try again.", {
+                style: {
+                    borderRadius: "8px",
+                    background: "var(--text-secondary-color)",
+                    color: "#fff",
+                },
+            });
+        } finally {
+            setLoading(false);
         }
-
-        reset();
-        onClose();
     };
 
 
@@ -138,7 +158,9 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
                             )}
                         </div>
                     </div>
-                    <button type="submit" className={s.bookBtn}>Book</button>
+                    <button type="submit" className={s.bookBtn} disabled={loading}>
+                        {loading ? 'Booking...' : 'Book'}
+                    </button>
                 </form>
             </div>
         </div>

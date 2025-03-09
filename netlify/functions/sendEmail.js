@@ -29,11 +29,12 @@ exports.handler = async function (event) {
             to: [{ email, name }],
             subject: "Your trial lesson booking",
             htmlContent: `
-                <h2>Hello, ${name}!</h2>
-                <p>Thank you for booking a trial lesson with ${teacher.name} ${teacher.surname}.</p>
-                <p><strong>Reason:</strong> ${reason}</p>
-                <p><strong>Phone:</strong> ${phone}</p>
-                <p>Our team will contact you soon!</p>
+                <h2>👋 Hello, ${name}!</h2>
+                <p>Thank you for booking a trial lesson with <strong>${teacher.name} ${teacher.surname}</strong>! 🎉</p>
+                <p>📌 <strong>Reason for learning:</strong> ${reason}</p>
+                <p>📞 <strong>Contact phone:</strong> ${phone}</p>
+                <p>🚀 Our team will contact you soon to confirm the details!</p>
+                <p>✨ Looking forward to helping you on your language learning journey! ✨</p>
             `,
         }, {
             headers: { "api-key": BREVO_API_KEY, "Content-Type": "application/json" }

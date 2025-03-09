@@ -1,12 +1,12 @@
-require("dotenv").config();
- // Загружаем переменные окружения локально
-import axios from "axios";
+const dotenv = require("dotenv");
+dotenv.config();
+const axios = require("axios");
 
 const BREVO_API_KEY = process.env.BREVO_API_KEY;
-console.log("BREVO_API_KEY:", process.env.BREVO_API_KEY);
+console.log("BREVO_API_KEY:", BREVO_API_KEY);
 
 
-export async function handler(event) {
+exports.handler = async function (event) {
     if (event.httpMethod !== "POST") {
         return {
             statusCode: 405,

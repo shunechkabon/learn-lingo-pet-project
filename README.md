@@ -47,7 +47,7 @@ The project design is available in **Figma**:
 
 ### **Live Version:**
 
-[🌍 LearnLingo on Netlify](#) _(Add the deployment link)_
+[🌍 LearnLingo on Netlify](https://learnlingo-project.netlify.app/)
 
 ### **Local Setup**
 

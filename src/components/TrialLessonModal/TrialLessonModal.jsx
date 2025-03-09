@@ -46,10 +46,34 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
         return () => document.removeEventListener('keydown', handleKeyDown);
     }, [onClose]);
 
-    const onSubmit = () => {
+    const onSubmit = async (data) => {
+        console.log("Форма отправлена!", data);
+
+        try {
+            const response = await fetch("/.netlify/functions/sendEmail", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ...data, teacher }),
+            });
+
+            console.log("Ответ сервера:", response);
+            const result = await response.json();
+            console.log("Результат:", result);
+
+            if (!response.ok) {
+                throw new Error(result.message || "Ошибка отправки email");
+            }
+
+            alert("Booking confirmed! Check your email.");
+        } catch (error) {
+            console.error("Ошибка запроса:", error);
+            alert("Failed to send email: " + error.message);
+        }
+
         reset();
         onClose();
     };
+
 
     return (
         <div className={`${s.overlay} ${isOpen ? s.overlayVisible : ''}`} onClick={onClose}>

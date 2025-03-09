@@ -1,0 +1,118 @@
+.dropdown {
+    position: relative;
+}
+
+.button {
+    background-color: var(--button-primary-color);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    height: 40px;
+    width: 40px;
+    font-size: 14px;
+    line-height: 1.11;
+}
+
+.arrow {
+    transform: rotate(-90deg);
+    transition: transform 0.3s ease;
+    fill: none;
+    stroke: black;
+}
+
+.arrowUp {
+    transform: rotate(90deg);
+}
+
+.menu {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    width: 92px;
+    bottom: 0;
+    left: 100%;
+    background: var(--background-primary-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+    padding: 4px;
+    z-index: 10;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    visibility: hidden;
+}
+
+.menu.open {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.menuItem {
+    padding: 2px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menuItem:hover {
+    transform: scale(1.1);
+}
+
+.colorBox {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+}
+
+.yellow {
+    background-color: #F4C550;
+}
+
+.green {
+    background-color: #9FBAAE;
+}
+
+.blue {
+    background-color: #9FB7CE;
+}
+
+.pink {
+    background-color: #E0A39A;
+}
+
+.orange {
+    background-color: #F0AA8D;
+}
+
+.selected .colorBox {
+    border: 1px solid var(--text-secondary-color);
+}
+
+@media screen and (min-width:768px) {
+    .menu {
+        top: 100%;
+        bottom: auto;
+        left: 0;
+        margin-top: 10px;
+        margin-left: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    }
+        
+    .menu.open {
+        transform: translateY(0);
+    }
+
+    .arrow {
+        transform: rotate(0deg);
+        transition: transform 0.3s ease;
+    }
+    
+    .arrowUp {
+        transform: rotate(180deg);
+    }
+}

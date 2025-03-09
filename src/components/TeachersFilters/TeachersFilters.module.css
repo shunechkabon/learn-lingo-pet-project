@@ -36,8 +36,13 @@
 }
 
 .arrow {
+    transition: transform 0.3s ease;
     fill: none;
     stroke: black;
+}
+
+.arrowUp {
+    transform: rotate(180deg);
 }
 
 .menu {

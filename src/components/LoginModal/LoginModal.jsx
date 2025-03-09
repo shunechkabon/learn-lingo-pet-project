@@ -12,7 +12,7 @@ const schema = yup.object({
     password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
 }).required();
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose, onSuccess }) => {
     const dispatch = useDispatch();
     const { loading, error } = useSelector((state) => state.auth);
     const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm({
@@ -54,6 +54,7 @@ const LoginModal = ({ isOpen, onClose }) => {
         if (loginUser.fulfilled.match(resultAction)) {
             reset();
             onClose();
+            onSuccess();
         } else {
             setValue('password', '');
         }

@@ -50,6 +50,33 @@
   --header-height: 88px;
 }
 
+/* Theme styles */
+.theme-yellow {
+  --button-primary-color: #F4C550;
+  --button-focus-color: #FBE9BA;
+}
+
+.theme-green {
+  --button-primary-color: #9FBAAE;
+  --button-focus-color: #CBDED3;
+}
+
+.theme-blue {
+  --button-primary-color: #9FB7CE;
+  --button-focus-color: #BFD6EA;
+}
+
+.theme-pink {
+  --button-primary-color: #E0A39A;
+  --button-focus-color: #F2C0BD;
+}
+
+.theme-orange {
+  --button-primary-color: #F0AA8D;
+  --button-focus-color: #F4C8BA;
+}
+
+
 /* Reset styles */
 * {
   box-sizing: border-box;
@@ -68,12 +95,18 @@ body {
   color: var(--text-primary-color);
   background-color: var(--background-primary-color);
   line-height: 1.2;
-  padding-top: 88px;
+  padding-top: 62px;
 
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
   width: 100%;
+}
+
+@media screen and (min-width:768px) {
+  body {
+    padding-top: 88px;
+  }
 }
 
 h1,

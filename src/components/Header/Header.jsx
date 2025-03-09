@@ -6,6 +6,7 @@ import { logoutUser } from "../../redux/auth/authSlice";
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import Icon from '../Icon';
 import s from './Header.module.css';
 
@@ -64,6 +65,7 @@ const Header = () => {
 
                 {/* Auth buttons */}
                 <div className={s.auth}>
+                    <ThemeSwitcher />
                     {!isLoggedIn ? (
                         <>
                             <button type='button' className={s.loginBtn} onClick={() => setIsLoginOpen(true)}>
@@ -87,7 +89,12 @@ const Header = () => {
                     )}
                 </div>
 
-                <BurgerMenu isOpen={isMenuOpen} onClose={toggleMenu} />
+                <BurgerMenu
+                    isOpen={isMenuOpen}
+                    onClose={toggleMenu}
+                    onOpenLogin={() => setIsLoginOpen(true)} 
+                    onOpenRegister={() => setIsRegisterOpen(true)}
+                />
             </div>
         </header>
     );

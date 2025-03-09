@@ -79,7 +79,7 @@ function Dropdown({ label, options, selected, onSelect }) {
             <span className={s.label}>{label}</span>
             <button className={s.button} onClick={() => setIsOpen((prev) => !prev)}>
                 {selected}
-                <Icon className={s.arrow} name="icon-arrow-down"/>
+                <Icon className={`${s.arrow} ${isOpen ? s.arrowUp : ""}`} name="icon-arrow-down"/>
             </button>
             <ul className={`${s.menu} ${isOpen ? s.open : ""}`}>
                 {options.map((option) => (

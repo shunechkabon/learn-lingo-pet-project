@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getAuth,updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
-import { app } from "../../firebase";
+import { app, db, ref, set } from "../../firebase";
 
 const auth = getAuth(app);
 
@@ -11,11 +11,18 @@ export const registerUser = createAsyncThunk("auth/registerUser", async ({ email
     const user = userCredential.user;
 
     await updateProfile(user, { displayName: name });
+
+    await set(ref(db, "users/" + user.uid), {
+      uid: user.uid,
+      email: user.email,
+      displayName: name,
+      createdAt: new Date().toISOString(),
+    });
     
     return { 
       uid: user.uid, 
       email: user.email, 
-      displayName: name 
+      displayName: name
     }; 
   } catch (error) {
     console.error("Registration error:", error);
@@ -28,11 +35,12 @@ export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, pass
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
+    await user.reload();
 
     return { 
       uid: user.uid, 
       email: user.email, 
-      displayName: user.displayName || "" 
+      displayName: user.displayName || user.email.split("@")[0] 
     }; 
   } catch (error) {
     console.error("Login error:", error);
@@ -55,7 +63,11 @@ export const logoutUser = createAsyncThunk("auth/logoutUser", async (_, { reject
 export const listenAuthState = createAsyncThunk("auth/listenAuthState", (_, { dispatch }) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      dispatch(setUser({ uid: user.uid, email: user.email, displayName: user.displayName || "" }));
+      dispatch(setUser({
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName || user.email.split("@")[0]
+      }));
     } else {
       dispatch(setUser(null));
     }

@@ -20,7 +20,7 @@ const schema = yup.object({
         .required('Password is required'),
 }).required();
 
-const RegisterModal = ({ isOpen, onClose }) => {
+const RegisterModal = ({ isOpen, onClose, onSuccess }) => {
     const dispatch = useDispatch();
     const { loading, error } = useSelector((state) => state.auth);
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
@@ -65,6 +65,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
         await dispatch(registerUser(userData));
         reset();
         onClose();
+        onSuccess();
     };
 
     return (

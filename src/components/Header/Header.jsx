@@ -72,9 +72,17 @@ const Header = () => {
                                 <Icon name="icon-log-in" width={20} height={20} style={ {stroke: 'var(--button-primary-color)'} } />
                                 Log in
                             </button>
-                            <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+                            <LoginModal
+                                isOpen={isLoginOpen}
+                                onClose={() => setIsLoginOpen(false)}
+                                onSuccess={() => window.location.reload()}
+                            />
                             <button type='button' className={s.registerBtn} onClick={() => setIsRegisterOpen(true)}>Registration</button>
-                            <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
+                            <RegisterModal
+                                isOpen={isRegisterOpen}
+                                onClose={() => setIsRegisterOpen(false)}
+                                onSuccess={() => window.location.reload()}
+                            />
                         </>
                     ) : (
                         <div className={s.auth}>

@@ -34,10 +34,11 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
             document.body.style.overflow = 'hidden';
             document.addEventListener('touchmove', disableScroll, { passive: false });
             setTimeout(() => {
-                if (document.activeElement) {
-                    document.activeElement.blur();
+                const activeElement = document.activeElement;
+                if (activeElement && (activeElement.tagName === "BUTTON" || activeElement.tagName === "INPUT")) {
+                    activeElement.blur();
                 }
-            }, 0);
+            }, 50);
         } else {
             document.body.style.overflow = '';
             document.removeEventListener('touchmove', disableScroll);

@@ -31,10 +31,11 @@ const LoginModal = ({ isOpen, onClose, onSuccess }) => {
             document.body.style.overflow = 'hidden';
             dispatch(clearError());
             setTimeout(() => {
-                if (document.activeElement) {
-                    document.activeElement.blur();
+                const activeElement = document.activeElement;
+                if (activeElement && (activeElement.tagName === "BUTTON" || activeElement.tagName === "INPUT")) {
+                    activeElement.blur();
                 }
-            }, 0);
+            }, 50);
         } else {
             document.body.style.overflow = '';
             reset();

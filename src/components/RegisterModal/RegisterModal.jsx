@@ -38,10 +38,11 @@ const RegisterModal = ({ isOpen, onClose, onSuccess }) => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
             setTimeout(() => {
-                if (document.activeElement) {
-                    document.activeElement.blur();
+                const activeElement = document.activeElement;
+                if (activeElement && (activeElement.tagName === "BUTTON" || activeElement.tagName === "INPUT")) {
+                    activeElement.blur();
                 }
-            }, 0);
+            }, 50);
         } else {
             document.body.style.overflow = '';
             reset();

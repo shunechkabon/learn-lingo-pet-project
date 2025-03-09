@@ -30,6 +30,11 @@ const LoginModal = ({ isOpen, onClose, onSuccess }) => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
             dispatch(clearError());
+            setTimeout(() => {
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+            }, 0);
         } else {
             document.body.style.overflow = '';
             reset();

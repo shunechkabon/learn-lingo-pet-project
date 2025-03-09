@@ -33,6 +33,11 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
             document.addEventListener('touchmove', disableScroll, { passive: false });
+            setTimeout(() => {
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+            }, 0);
         } else {
             document.body.style.overflow = '';
             document.removeEventListener('touchmove', disableScroll);

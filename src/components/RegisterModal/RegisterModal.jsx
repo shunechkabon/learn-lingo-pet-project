@@ -37,6 +37,11 @@ const RegisterModal = ({ isOpen, onClose, onSuccess }) => {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+            }, 0);
         } else {
             document.body.style.overflow = '';
             reset();

@@ -1,4 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+import userImage from '/src/assets/images/user-homepage.png';
+import userImage2x from '/src/assets/images/user-homepage@2x.png';
+import macImage from '/src/assets/images/Mac.png';
 import s from './HeroSection.module.css';
 
 const HeroSection = () => {
@@ -22,12 +25,12 @@ const HeroSection = () => {
                 </div>
                 <div className={s.imageBlock}>
                     <img
-                        src="/src/assets/images/user-homepage.png"
-                        srcSet='/src/assets/images/user-homepage.png 1x, /src/assets/images/user-homepage@2x.png 2x'
+                        src={userImage}
+                        srcSet={`${userImage} 1x, ${userImage2x} 2x`}
                         alt="Tutor Avatar"
                         className={s.emoji}
                     />
-                    <img src="/src/assets/images/Mac.png" alt="Macbook" className={s.mac} />
+                    <img src={macImage} alt="Macbook" className={s.mac} />
                 </div>
             </div>
         </section>

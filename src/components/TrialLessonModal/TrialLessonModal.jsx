@@ -47,8 +47,6 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
     }, [onClose]);
 
     const onSubmit = async (data) => {
-        console.log("Форма отправлена!", data);
-
         try {
             const response = await fetch("/.netlify/functions/sendEmail", {
                 method: "POST",
@@ -56,17 +54,15 @@ const TrialLessonModal = ({ isOpen, onClose, teacher }) => {
                 body: JSON.stringify({ ...data, teacher }),
             });
 
-            console.log("Ответ сервера:", response);
             const result = await response.json();
-            console.log("Результат:", result);
 
             if (!response.ok) {
-                throw new Error(result.message || "Ошибка отправки email");
+                throw new Error(result.message || "Error in sending emails");
             }
 
             alert("Booking confirmed! Check your email.");
         } catch (error) {
-            console.error("Ошибка запроса:", error);
+            console.error("Error:", error);
             alert("Failed to send email: " + error.message);
         }
 

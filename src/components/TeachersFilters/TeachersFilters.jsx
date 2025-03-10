@@ -20,14 +20,27 @@ export default function TeachersFilters({ onFilterChange }) {
     const [selectedPrice, setSelectedPrice] = useState("Any");
 
     const handleChange = (type, value) => {
-        if (type === "language") setSelectedLanguage(value);
-        if (type === "level") setSelectedLevel(value);
-        if (type === "price") setSelectedPrice(value);
+        let newLanguage = selectedLanguage;
+        let newLevel = selectedLevel;
+        let newPrice = selectedPrice;
+
+        if (type === "language") {
+            newLanguage = value;
+            setSelectedLanguage(newLanguage);
+        }
+        if (type === "level") {
+            newLevel = value; 
+            setSelectedLevel(newLevel);
+        }
+        if (type === "price") {
+            newPrice = value === "Any" ? "Any" : Number(value.replace(" $", ""));
+            setSelectedPrice(newPrice);
+        }
 
         onFilterChange({
-            language: type === "language" ? value : selectedLanguage,
-            level: type === "level" ? value : selectedLevel,
-            price: type === "price" ? (value === "Any" ? "Any" : Number(value.replace(" $", ""))) : selectedPrice,
+            language: newLanguage,
+            level: newLevel,
+            price: newPrice,
         });
     };
 

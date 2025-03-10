@@ -61,6 +61,8 @@ export const logoutUser = createAsyncThunk("auth/logoutUser", async (_, { reject
 
 // Listening to authorization change
 export const listenAuthState = createAsyncThunk("auth/listenAuthState", (_, { dispatch }) => {
+  dispatch(setLoading(true)); 
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       dispatch(setUser({
@@ -79,14 +81,18 @@ const authSlice = createSlice({
   initialState: {
     user: null,
     isAuthenticated: false,
-    loading: false,
+    loading: true,
     error: null,
   },
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
       state.isAuthenticated = !!action.payload;
+      state.loading = false;
       state.error = null;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
     clearError: (state) => {
       state.error = null;
@@ -94,27 +100,36 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload; 
         state.isAuthenticated = true;
+        state.loading = false;
         state.error = null;
+      })
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user = action.payload; 
         state.isAuthenticated = true;
+        state.loading = false;
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        console.error("Login error:", action.payload);
         state.error = action.payload;
+        state.loading = false;
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
         state.isAuthenticated = false;
+        state.loading = false;
         state.error = null;
       });
   },
 });
 
-export const { setUser, clearError } = authSlice.actions;
+export const { setUser, setLoading, clearError } = authSlice.actions;
 export default authSlice.reducer;

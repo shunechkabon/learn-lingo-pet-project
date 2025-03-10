@@ -11,6 +11,7 @@ const TeachersPage = () => {
   const [loading, setLoading] = useState(true);
   const [filteredTeachers, setFilteredTeachers] = useState([]);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [displayedTeachers, setDisplayedTeachers] = useState([]);
   const [filters, setFilters] = useState({
     language: "Any",
     level: "Any",
@@ -52,13 +53,14 @@ const TeachersPage = () => {
       (filters.level === "Any" || teacher.levels.includes(filters.level)) &&
       (filters.price === "Any" || (teacher.price_per_hour >= filters.price && teacher.price_per_hour < filters.price + 10))
     );
+    setDisplayedTeachers(filtered);
     setTeachers(filtered.slice(0, PAGE_SIZE));
-    setVisibleCount(PAGE_SIZE);
+    setVisibleCount(Math.min(PAGE_SIZE, filtered.length));
   }, [filters, filteredTeachers]);
 
   const handleLoadMore = () => {
     const newCount = visibleCount + PAGE_SIZE;
-    setTeachers(filteredTeachers.slice(0, newCount));
+    setTeachers((prev) => [...prev, ...displayedTeachers.slice(prev.length, newCount)]);
     setVisibleCount(newCount);
   };
 
@@ -68,6 +70,7 @@ const TeachersPage = () => {
       level: newFilters.level,
       price: newFilters.price === "Any" ? "Any" : Number(newFilters.price),
     });
+    setVisibleCount(PAGE_SIZE); 
   };
 
   if (loading) return <p>Loading teachers...</p>;
@@ -76,7 +79,7 @@ const TeachersPage = () => {
     <section className={s.container}>
       <TeachersFilters onFilterChange={handleFilters}/>
       <TeachersList teachers={teachers} />
-      {visibleCount < filteredTeachers.length && (
+      {teachers.length < displayedTeachers.length && (
         <button onClick={handleLoadMore} className={s.loadMoreBtn}>Load more</button>
       )}
     </section>
